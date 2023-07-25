@@ -15,19 +15,25 @@ require("dotenv").config()
 const register=async(req,res)=>{
     const {name,email,password}=req.body
     try {
+
+        // validation 
         if (!name  || !email  || !password) {
             return res.status(400).json({
-              message: "Name, mobile,email and password are required.",
+              message: "Name,email and password are required.",
             });
           }
+
+        //   checking user already present or not
         const alreadyUser=await UserModel.find({email})
         if(alreadyUser.length>0){
             return res.status(400).json({"message":"User already exist"})
         }
+        // hashing password here
         bcrypt.hash(password,5,async(err,secure_password)=>{
             if(err){
                 console.log(err)
             }
+            // new user registration
             const user=new UserModel({name,email,password:secure_password})
             await user.save()
             res.status(201).json({"message":"Account created successfully"})
@@ -42,13 +48,20 @@ const register=async(req,res)=>{
 const login=async(req,res)=>{
     const {email,password}=req.body
     try {
+        // validation
         if(!email ||!password){
             return res.status(401).json({"message":"Email and Password required"})
         }
+
+    
         const user=await UserModel.find({email})
         if(user.length>0){
+
+            // here password is coparing from hashing password
             bcrypt.compare(password,user[0].password,(err,result)=>{
                 if(result){
+
+                    // here generating token for authentication
                     const token=jwt.sign({userId:user[0]._id},process.env.key)
                     res.status(201).json({"token":token,"message":"Login Successfull"})
                 }else{
