@@ -11,6 +11,8 @@ require("dotenv").config()
 
 // importing user router 
 const {userRouter}=require("./routes/userRoutes")
+const { productRouter } = require("./routes/productRoutes")
+const { categoryRouter } = require("./routes/categoryRoutes")
 
 
 // middleware 
@@ -23,7 +25,11 @@ app.get("/",(req,res)=>{
     res.send("Home Page Of This Api")
 })
 
+
+// making api request
 app.use("/",userRouter)
+app.use("/",productRouter)
+app.use("/",categoryRouter)
 
 
 // app is listening here on specific port no

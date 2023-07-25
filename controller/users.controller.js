@@ -28,7 +28,7 @@ const register=async(req,res)=>{
         if(alreadyUser.length>0){
             return res.status(400).json({"message":"User already exist"})
         }
-        // hashing password here
+        // hashing password before storing into databse
         bcrypt.hash(password,5,async(err,secure_password)=>{
             if(err){
                 console.log(err)
@@ -57,7 +57,7 @@ const login=async(req,res)=>{
         const user=await UserModel.find({email})
         if(user.length>0){
 
-            // here password is coparing from hashing password
+            // here password is coparing from hashing password befor login
             bcrypt.compare(password,user[0].password,(err,result)=>{
                 if(result){
 
