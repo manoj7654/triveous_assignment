@@ -9,8 +9,21 @@ const {connection}=require("./config/db")
 require("dotenv").config()
 
 
+// importing user router 
+const {userRouter}=require("./routes/userRoutes")
 
 
+// middleware 
+app.use(express.json())
+
+
+
+// basic enpoint of this api
+app.get("/",(req,res)=>{
+    res.send("Home Page Of This Api")
+})
+
+app.use("/",userRouter)
 
 
 // app is listening here on specific port no
