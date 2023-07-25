@@ -15,7 +15,7 @@ const product=async(req,res)=>{
 }
 
 // getting products using category
-const getProduct=async(req,res)=>{
+const getProductByCategoryId=async(req,res)=>{
     const id=req.params.categoryId
 try {
     const result=await ProductModel.find({categoryId:id})
@@ -26,8 +26,21 @@ try {
 }
 }
 
+const getProductByProductId=async(req,res)=>{
+    const id=req.params._id
+    console.log(id)
+try {
+    const result=await ProductModel.find({_id:id})
+    res.status(200).json(result)
+} catch (error) {
+    console.log(error)
+        res.status(500).json({"message":"Getting Error while getting product"})
+}
+}
+
 // export
 module.exports={
     product,
-    getProduct
+    getProductByCategoryId,
+    getProductByProductId
 }
