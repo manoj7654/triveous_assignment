@@ -4,11 +4,11 @@ const mongoose=require("mongoose")
 
 // product schema
 const productSchema=mongoose.Schema({
-    title:{type:String,require:true},
-    description:{type:String,require:true},
-    price:{type:Number,require:true},
+    title:{type:String,required:true},
+    description:{type:String,required:true},
+    price:{type:Number,required:true},
     availability:{type:Boolean,default:true},
-    categoryId:{type:"ObjectId",ref:"category",require:true}
+    categoryId:{type:"ObjectId",ref:"category",required:true}
 })
 
 

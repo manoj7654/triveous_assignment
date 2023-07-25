@@ -13,6 +13,7 @@ require("dotenv").config()
 const {userRouter}=require("./routes/userRoutes")
 const { productRouter } = require("./routes/productRoutes")
 const { categoryRouter } = require("./routes/categoryRoutes")
+const { cartRouter } = require("./routes/cartRouter")
 
 
 // middleware 
@@ -30,6 +31,7 @@ app.get("/",(req,res)=>{
 app.use("/",userRouter)
 app.use("/",productRouter)
 app.use("/",categoryRouter)
+app.use("/",cartRouter)
 
 
 // app is listening here on specific port no
