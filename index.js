@@ -14,6 +14,7 @@ const {userRouter}=require("./routes/userRoutes")
 const { productRouter } = require("./routes/productRoutes")
 const { categoryRouter } = require("./routes/categoryRoutes")
 const { cartRouter } = require("./routes/cartRouter")
+const { orderRouter } = require("./routes/orderRouter")
 
 
 // middleware 
@@ -32,6 +33,7 @@ app.use("/",userRouter)
 app.use("/",productRouter)
 app.use("/",categoryRouter)
 app.use("/",cartRouter)
+app.use("/",orderRouter)
 
 
 // app is listening here on specific port no

@@ -63,7 +63,7 @@ const login=async(req,res)=>{
 
                     // here generating token for authentication
                     const token=jwt.sign({userId:user[0]._id},process.env.key)
-                    res.status(201).json({"token":token,"message":"Login Successfull"})
+                    res.status(201).json({"token":token,userId:user[0]._id,"message":"Login Successfull"})
                 }else{
                     res.status(401).json({"message":"Either email or password wrong"})
                 }

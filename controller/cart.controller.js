@@ -1,26 +1,41 @@
 // importing cartmodel for making cart function
 const { CartModel } = require("../models/cart.model");
 
+// importing product model for findig price
+const {ProductModel}=require("../models/product.model")
+
 const addToCart = async (req, res) => {
-  const { userId, productId } = req.body;
+  const { userId, productId,} = req.body;
   try {
+    
+    // Fetch the product details using the productId
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Get the price of the product
+    const price = product.price;
+   console.log(price)
+
     // Check if the product already exists in the cart
     let cart = await CartModel.findOne({ userId });
 
     if (!cart) {
       // If cart doesn't exist, create a new cart and add the product
-      cart = new CartModel({ userId, items: [{ productId, quantity: 1 }] });
+      cart = new CartModel({ userId, items: [{ productId, quantity: 1,price }] });
     } else {
       // If cart exists, check if the product is already in the cart
-      const existingItem = cart.items.find(
+      const allReadyPresentItem = cart.items.find(
         (item) => item.productId == productId
       );
-      if (existingItem) {
+      if (allReadyPresentItem) {
         // If the product exists in the cart, increase the quantity by 1
-        existingItem.quantity += 1;
+        allReadyPresentItem.quantity += 1;
       } else {
         // If the product doesn't exist in the cart, add a new cart item
-        cart.items.push({ productId, quantity: 1 });
+        cart.items.push({ productId, quantity: 1,price });
       }
     }
 
