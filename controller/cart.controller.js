@@ -5,7 +5,8 @@ const { CartModel } = require("../models/cart.model");
 const {ProductModel}=require("../models/product.model")
 
 const addToCart = async (req, res) => {
-  const { userId, productId,} = req.body;
+  const { userId} = req.body;
+  const {productId}=req.params
   try {
     
     // Fetch the product details using the productId
@@ -17,14 +18,14 @@ const addToCart = async (req, res) => {
 
     // Get the price of the product
     const price = product.price;
-   console.log(price)
+
 
     // Check if the product already exists in the cart
     let cart = await CartModel.findOne({ userId });
 
     if (!cart) {
       // If cart doesn't exist, create a new cart and add the product
-      cart = new CartModel({ userId, items: [{ productId, quantity: 1,price }] });
+      cart = new CartModel({ userId, items: [{ productId, quantity:1,price }] });
     } else {
       // If cart exists, check if the product is already in the cart
       const allReadyPresentItem = cart.items.find(
@@ -35,7 +36,7 @@ const addToCart = async (req, res) => {
         allReadyPresentItem.quantity += 1;
       } else {
         // If the product doesn't exist in the cart, add a new cart item
-        cart.items.push({ productId, quantity: 1,price });
+        cart.items.push({ productId, quantity:1,price });
       }
     }
 
@@ -51,8 +52,20 @@ const addToCart = async (req, res) => {
 
 //  updating quantity for particular product by productid
 const updateQuantity = async (req, res) => {
-  const { userId, productId, quantity } = req.body;
+  const { userId, quantity } = req.body;
+  const {productId}=req.params
   try {
+      // to get the products price
+      const product = await ProductModel.findById(productId);
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+  
+      // Get the price of the product
+      const price = product.price;
+      const updatedPrice=quantity*price
+  
     let cart = await CartModel.findOne({ userId });
     if (!cart) {
       return res.status(404).json({ message: "Cart is not found" });
@@ -63,7 +76,9 @@ const updateQuantity = async (req, res) => {
     if (!updatedQuantity) {
       return res.status(404).json({ error: "Item not present  in the cart" });
     }
+    
     updatedQuantity.quantity = quantity;
+    updatedQuantity.price=updatedPrice
     await cart.save();
     res.json({ message: "Cart item updated successfully" });
   } catch (error) {

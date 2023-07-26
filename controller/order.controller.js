@@ -6,8 +6,9 @@ const { CartModel } = require("../models/cart.model");
 
 // order
 const order = async (req, res) => {
-  const { productId,userId } = req.body;
+  const { userId } = req.body;
 
+  const {productId}=req.params
   try {
     // checking cart is present or not
     let cart = await CartModel.findOne({ userId });
@@ -44,7 +45,33 @@ const order = async (req, res) => {
   }
 };
 
+// get all order history
+const orderHistory=async(req,res)=>{
+    try {
+        const orderHistory=await OrderModel.find()
+        res.status(200).json(orderHistory)
+    } catch (error) {
+        console.log(error);
+    res.status(500).json({ message: "Getting error while fetching order history" });
+    }
+}
+
+// get all order details
+const orderDetails=async(req,res)=>{
+    const orderId=req.params._id
+    try {
+        const orderDetail=await OrderModel.find({_id:orderId})
+        res.status(200).json(orderDetail)
+    } catch (error) {
+        console.log(error);
+    res.status(500).json({ message: "Getting error while fetching order history" });
+    }
+}
+
+
 // exporting
 module.exports = {
   order,
+  orderHistory,
+  orderDetails
 };
