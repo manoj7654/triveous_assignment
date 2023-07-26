@@ -4,7 +4,7 @@ const mongoose=require("mongoose")
 
 // order schema
 const orderSchema=mongoose.Schema({
-    userId:{type:"ObjectId",required:true},
+    userId:{type:"ObjectId"},
     items:[
         {
             productId:{type:"ObjectId",ref:"users",required:true},

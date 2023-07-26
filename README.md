@@ -32,6 +32,10 @@ Welcome to the documentation for the E-Commerce API! This API provides various e
 
 * [Middleware](#middleware)
 
+* [Presentation Video](#presentation-video)
+
+* [Deployed Link](#deployed-link)
+
 ## Getting Started
 ### Prerequisites
 
@@ -365,3 +369,11 @@ Controllers handle the business logic for each endpoint and interact with the da
 * order.controller: Manages order placement and retrieval.
 ### Middleware
 authenticate: Authentication middleware that checks the validity of the JWT token and ensures secure access to protected routes.
+
+### Presentation Video
+
+[Demo](https://drive.google.com/file/d/1T9q8EJG930RQVQL7G2PDmuaYdNuM654Y/view?usp=sharing)
+
+### Deployed Link
+
+[Live](https://e-commerce-82m5.onrender.com/)

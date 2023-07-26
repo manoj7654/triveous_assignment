@@ -3,9 +3,9 @@ const {ProductModel}=require("../models/product.model")
 
 // creating product here
 const product=async(req,res)=>{
-    const {title,description,availability,category}=req.body
+    const {title,description,availability,price,categoryId}=req.body
     try {
-        const result=new ProductModel({title,description,availability,category})
+        const result=new ProductModel({title,description,availability,price,categoryId})
         await result.save()
         res.status(201).json({"message":"Product added successfully"})
     } catch (error) {
