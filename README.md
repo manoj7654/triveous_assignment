@@ -149,21 +149,21 @@ The API provides the following endpoints for managing E-commerce data:
                 "description": "Product 1 Description",
                 "price": 50.99,
                 "availability": true,
-                "categoryId": "category_id_1"
+                "categoryId": "categoryId_1"
             },
             {
                 "title": "Product 2",
                 "description": "Product 2 Description",
                 "price": 35.99,
                 "availability": false,
-                "categoryId": "category_id_1"
+                "categoryId": "categoryId_1"
             }
         ]
 
-`Get a single product by its ID`
+`Get a single product by its productId`
 
 * method: GET
-* Endpoint: /productId/:_id
+* Endpoint: /productid/:_id
 * params: req.params._id
 * Response Body (Success):
 
@@ -172,7 +172,7 @@ The API provides the following endpoints for managing E-commerce data:
         "description": "Product Description",
         "price": 50.99,
         "availability": true,
-        "categoryId": "category_id"
+        "categoryId": "categoryId"
         }
 
 3. Category Endpoints
@@ -247,16 +247,17 @@ The API provides the following endpoints for managing E-commerce data:
 * method: GET
 * Endpoint: /cart/:userId
 * userId:req.params.userId
+* Authorization: token
 * Response Body (Success):
 
         [
           {
-            "productId": "product_id_1",
+            "productId": "productId_1",
             "quantity": 2,
             "price": 50.99
           },
           {
-            "productId": "product_id_2",
+            "productId": "productId_2",
             "quantity": 1,
             "price": 35.99
           }
