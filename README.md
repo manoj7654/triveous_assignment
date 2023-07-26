@@ -1,4 +1,4 @@
-# E-Commerce API Documentation
+# E-Commerce API
 Welcome to the documentation for the E-Commerce API! This API provides various endpoints to manage users, products, categories, carts, and orders for an E-commerce application.
 
 ## Table of Contents
